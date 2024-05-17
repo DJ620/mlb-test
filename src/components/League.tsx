@@ -18,7 +18,6 @@ export default function League({ leagueName, teams }: props) {
       divisions[divisionName].push(team);
     });
     setSortedDivisions(divisions);
-    console.log(divisions);
   }, [teams]);
 
   return (

@@ -20,7 +20,6 @@ export default function Teams() {
       leagues[leagueName] = leagues[leagueName] || [];
       leagues[leagueName].push(team);
     });
-    console.log({ leagues });
     setSortedLeagues(leagues);
   };
   return (

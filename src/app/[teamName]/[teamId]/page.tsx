@@ -19,7 +19,6 @@ export default function Roster({
     const { data } = await axios.get(
       `https://statsapi.mlb.com/api/v1/teams/${params.teamId}/roster?rosterType=active`
     );
-    console.log(data.roster);
     setRoster(data.roster);
   };
 
