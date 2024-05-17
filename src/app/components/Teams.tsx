@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Link from "next/link";
+import League from "./League";
 
 export default function Teams() {
-  const [teamsData, setTeamsData] = useState<any>([]);
+  const [sortedLeagues, setSortedLeagues] = useState<any>({});
 
   useEffect(() => {
     getData();
@@ -14,18 +14,27 @@ export default function Teams() {
     const { data } = await axios.get(
       "https://statsapi.mlb.com/api/v1/teams?season=2023&sportId=1"
     );
-    setTeamsData(data.teams);
-    console.log(data.teams);
+    let leagues: any = {};
+    data.teams.forEach((team: any) => {
+      let leagueName = team.league.name;
+      leagues[leagueName] = leagues[leagueName] || [];
+      leagues[leagueName].push(team);
+    });
+    console.log({ leagues });
+    setSortedLeagues(leagues);
   };
   return (
     <div>
-      <h1>MLB Teams</h1>
-      <div>
-        {teamsData.length > 0 &&
-          teamsData.map((team: any) => {
+      <h1 className="text-4xl">MLB Teams</h1>
+      <div className="flex gap-20">
+        {Object.keys(sortedLeagues).length > 0 &&
+          Object.keys(sortedLeagues).map((league: any) => {
             return (
-              <div key={team.id}>
-                <Link href={""}>{team.name} - {team.league.name} - {team.division.name}</Link>
+              <div key={sortedLeagues.league}>
+                <League
+                  leagueName={league}
+                  teams={sortedLeagues[league]}
+                />
               </div>
             );
           })}
