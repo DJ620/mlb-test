@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 type props = {
@@ -12,7 +13,11 @@ export default function Division({ divisionName, teams }: props) {
       <div>
         {teams.length > 0 &&
           teams.map((team: any) => {
-            return <p key={team.id}>{team.name}</p>;
+            return (
+              <div key={team.id}>
+                <Link href={`${team.name}/${team.id}`}>{team.name}</Link>
+              </div>
+            );
           })}
       </div>
     </div>
